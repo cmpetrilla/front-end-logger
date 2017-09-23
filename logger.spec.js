@@ -1,5 +1,5 @@
 describe('Logger', function() {
-	let logger = window.logger;
+	let logger = Logger.getInstance();
 
 	let consoleErrorSpy;
 	let consoleWarnSpy;
