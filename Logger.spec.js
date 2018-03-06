@@ -34,12 +34,12 @@ describe('Logger', function() {
 	});
 
 	it('should be turned off by default.', function() {
-		assert.strictEqual(logger.currentLevel, logger.levels.OFF);
+		assert.strictEqual(logger.getLevel(), logger.levels.OFF);
 	});
 
 	it('should log Debug and up when current level is Debug.', function() {
 		logger.setLevel(logger.levels.DEBUG);
-		assert.strictEqual(logger.currentLevel, logger.levels.DEBUG);
+		assert.strictEqual(logger.getLevel(), logger.levels.DEBUG);
 
 		logger.error();
 		expect(consoleErrorSpy).to.have.been.called();

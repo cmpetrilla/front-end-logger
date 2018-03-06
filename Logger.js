@@ -7,7 +7,29 @@ module.exports = class Logger {
 			DEBUG: 1,
 			OFF: 0
 		});
-		this.currentLevel = this.levels.OFF;
+
+		// Wacky syntax for this, but it ensures that the current level is private
+		var _currentLevel = this.levels.OFF;
+
+		this.getLevel = function() {
+			return _currentLevel;
+		};
+
+		this.setLevel = function(newLevel) {
+			let levelIsValid = false;
+
+			for (let level in this.levels) {
+				if (this.levels[level] === newLevel) {
+					levelIsValid = true;
+				}
+			}
+			if (levelIsValid) {
+				_currentLevel = newLevel;
+			} else {
+				console.warn('Current level is not valid. Turning debugging off.');
+				_currentLevel = this.levels.OFF;
+			}
+		}
 	}
 
 	error() {
@@ -26,29 +48,8 @@ module.exports = class Logger {
 		this.callConsoleFn('debug', arguments);
 	}
 
-	setLevel(newLevel) {
-		let levelIsValid = false;
-
-		for (let level in this.levels) {
-			if (this.levels[level] === newLevel) {
-				levelIsValid = true;
-				console.log('level is set');
-			}
-		}
-		if (levelIsValid) {
-			this.currentLevel = newLevel;
-		} else {
-			console.warn('Current level is not valid. Turning debugging off.');
-			this.currentLevel = this.levels.OFF;
-		}
-	}
-
-	getLevel() {
-		return this.currentLevel;
-	}
-
 	callConsoleFn(consoleMethod) {
-		if (this.currentLevel !== this.levels.OFF && this.currentLevel <= this.levels[consoleMethod.toUpperCase()]) {
+		if (this.getLevel() !== this.levels.OFF && this.getLevel() <= this.levels[consoleMethod.toUpperCase()]) {
 			console[consoleMethod](...arguments[1]);
 		}
 	}
