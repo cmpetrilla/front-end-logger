@@ -23,10 +23,10 @@ describe('Logger', function() {
 	beforeEach(function() {
 		logger = new Logger();
 
-		consoleErrorSpy = chai.spy.on(logger, 'error');
-		consoleWarnSpy = chai.spy.on(logger, 'warn');
-		consoleInfoSpy = chai.spy.on(logger, 'info');
-		consoleDebugSpy = chai.spy.on(logger, 'debug');
+		consoleErrorSpy = chai.spy.on(logger, 'callConsoleError');
+		consoleWarnSpy = chai.spy.on(logger, 'callConsoleWarn');
+		consoleInfoSpy = chai.spy.on(logger, 'callConsoleInfo');
+		consoleDebugSpy = chai.spy.on(logger, 'callConsoleDebug');
 	});
 
 	it('should be defined.', function() {
@@ -35,6 +35,71 @@ describe('Logger', function() {
 
 	it('should be turned off by default.', function() {
 		assert.strictEqual(logger.getLevel(), logger.levels.OFF);
+	});
+
+	it('should not anything log when turned off.', function() {
+		logger.error();
+		expect(consoleErrorSpy).to.not.have.been.called();
+
+		logger.warn();
+		expect(consoleWarnSpy).to.not.have.been.called();
+
+		logger.info();
+		expect(consoleInfoSpy).to.not.have.been.called();
+
+		logger.debug();
+		expect(consoleDebugSpy).to.not.have.been.called();
+	});
+
+	it('should log Error current level is Error.', function() {
+		logger.setLevel(logger.levels.ERROR);
+		assert.strictEqual(logger.getLevel(), logger.levels.ERROR);
+
+		logger.error();
+		expect(consoleErrorSpy).to.have.been.called();
+
+		logger.warn();
+		expect(consoleWarnSpy).to.not.have.been.called();
+
+		logger.info();
+		expect(consoleInfoSpy).to.not.have.been.called();
+
+		logger.debug();
+		expect(consoleDebugSpy).to.not.have.been.called();
+	});
+
+	it('should log Warn and up when current level is Warn.', function() {
+		logger.setLevel(logger.levels.WARN);
+		assert.strictEqual(logger.getLevel(), logger.levels.WARN);
+
+		logger.error();
+		expect(consoleErrorSpy).to.have.been.called();
+
+		logger.warn();
+		expect(consoleWarnSpy).to.have.been.called();
+
+		logger.info();
+		expect(consoleInfoSpy).to.not.have.been.called();
+
+		logger.debug();
+		expect(consoleDebugSpy).to.not.have.been.called();
+	});
+
+	it('should log Info and up when current level is Info.', function() {
+		logger.setLevel(logger.levels.INFO);
+		assert.strictEqual(logger.getLevel(), logger.levels.INFO);
+
+		logger.error();
+		expect(consoleErrorSpy).to.have.been.called();
+
+		logger.warn();
+		expect(consoleWarnSpy).to.have.been.called();
+
+		logger.info();
+		expect(consoleInfoSpy).to.have.been.called();
+
+		logger.debug();
+		expect(consoleDebugSpy).to.not.have.been.called();
 	});
 
 	it('should log Debug and up when current level is Debug.', function() {
@@ -54,84 +119,34 @@ describe('Logger', function() {
 		expect(consoleDebugSpy).to.have.been.called();
 	});
 
-	it.skip('should log Info and up when current level is Info.', function() {
-		logger.setLevel(logger.levels.INFO);
-		console.log('current level =>', logger.currentLevel);
-		assert.strictEqual(logger.currentLevel, logger.levels.INFO);
-
-		logger.error();
-		expect(consoleErrorSpy).to.have.been.called();
-
-		logger.warn();
-		expect(consoleWarnSpy).to.have.been.called();
-
-		logger.info();
-		expect(consoleInfoSpy).to.have.been.called();
-
-		logger.debug();
-		expect(consoleDebugSpy).to.not.have.been.called();
-	});
-
-	it.skip('should log Warn and up when current level is Warn.', function() {
-		logger.setLevel(logger.level.WARN);
-		expect(logger.getLevel()).toBe(logger.level.WARN);
-
-		logger.error();
-		expect(consoleErrorSpy).toHaveBeenCalled();
-
-		logger.warn();
-		expect(consoleWarnSpy).toHaveBeenCalled();
-
-		logger.info();
-		expect(consoleInfoSpy).not.toHaveBeenCalled();
-
-		logger.debug();
-		expect(consoleDebugSpy).not.toHaveBeenCalled();
-	});
-
-	it.skip('should log Error and up when current level is Error.', function() {
-		logger.setLevel(logger.level.ERROR);
-		expect(logger.getLevel()).toBe(logger.level.ERROR);
-
-		logger.error();
-		expect(consoleErrorSpy).toHaveBeenCalled();
-
-		logger.warn();
-		expect(consoleWarnSpy).not.toHaveBeenCalled();
-
-		logger.info();
-		expect(consoleInfoSpy).not.toHaveBeenCalled();
-
-		logger.debug();
-		expect(consoleDebugSpy).not.toHaveBeenCalled();
-	});
-
-	it.skip('should not log when turned off, which is the default state.', function() {
-		logger.error();
-		expect(consoleErrorSpy).not.toHaveBeenCalled();
-
-		logger.warn();
-		expect(consoleWarnSpy).not.toHaveBeenCalled();
-
-		logger.info();
-		expect(consoleInfoSpy).not.toHaveBeenCalled();
-
-		logger.debug();
-		expect(consoleDebugSpy).not.toHaveBeenCalled();
-	});
-
 	it.skip('should pass all arguments to appropriate console method.', function() {
-		let msg1 = 'hello';
-		let msg2 = 'world';
-		let msg3 = '!!!';
+		let msg1 = 'test';
 
-		logger.setLevel(logger.level.ERROR);
+		logger.setLevel(logger.levels.ERROR);
 
 		logger.error(msg1, msg2);
-		expect(consoleErrorSpy).toHaveBeenCalledWith(msg1, msg2);
+		expect(consoleErrorSpy).to.have.been.called.with(msg1, msg2);
 
 		logger.error(msg1, msg2, msg3);
-		expect(consoleErrorSpy).toHaveBeenCalledWith(msg1, msg2, msg3);
+		expect(consoleErrorSpy).to.have.been.called.with(msg1, msg2, msg3);
+
+		logger.warn(msg1, msg2);
+		expect(consoleWarnSpy).to.have.been.called.with(msg1, msg2);
+
+		logger.warn(msg1, msg2, msg3);
+		expect(consoleWarnSpy).to.have.been.called.with(msg1, msg2, msg3);
+
+		logger.info(msg1, msg2);
+		expect(consoleInfoSpy).to.have.been.called.with(msg1, msg2);
+
+		logger.info(msg1, msg2, msg3);
+		expect(consoleInfoSpy).to.have.been.called.with(msg1, msg2, msg3);
+
+		logger.debug(msg1, msg2);
+		expect(consoleDebugSpy).to.have.been.called.with(msg1, msg2);
+
+		logger.debug(msg1, msg2, msg3);
+		expect(consoleDebugSpy).to.have.been.called.with(msg1, msg2, msg3);
 	});
 
 	it.skip('should pass context if specified.', function() {
