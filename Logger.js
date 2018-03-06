@@ -1,8 +1,13 @@
-const levels = require('./levels');
-
 module.exports = class Logger {
 	constructor() {
-		this.currentLevel = levels.OFF;
+		this.levels = Object.freeze({
+			ERROR: 4,
+			WARN: 3,
+			INFO: 2,
+			DEBUG: 1,
+			OFF: 0
+		});
+		this.currentLevel = this.levels.OFF;
 	}
 
 	error() {
@@ -24,8 +29,8 @@ module.exports = class Logger {
 	setLevel(newLevel) {
 		let levelIsValid = false;
 
-		for (let level in levels) {
-			if (levels[level] === newLevel) {
+		for (let level in this.levels) {
+			if (this.levels[level] === newLevel) {
 				levelIsValid = true;
 				console.log('level is set');
 			}
@@ -34,12 +39,16 @@ module.exports = class Logger {
 			this.currentLevel = newLevel;
 		} else {
 			console.warn('Current level is not valid. Turning debugging off.');
-			this.currentLevel = levels.OFF;
+			this.currentLevel = this.levels.OFF;
 		}
 	}
 
+	getLevel() {
+		return this.currentLevel;
+	}
+
 	callConsoleFn(consoleMethod) {
-		if (this.currentLevel !== levels.OFF && this.currentLevel <= levels[consoleMethod.toUpperCase()]) {
+		if (this.currentLevel !== this.levels.OFF && this.currentLevel <= this.levels[consoleMethod.toUpperCase()]) {
 			console[consoleMethod](...arguments[1]);
 		}
 	}

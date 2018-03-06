@@ -1,4 +1,3 @@
-const levels = require('./levels');
 const Logger = require('./Logger');
 const Context = require('./Context');
 const chai = require('chai');
@@ -35,12 +34,12 @@ describe('Logger', function() {
 	});
 
 	it('should be turned off by default.', function() {
-		assert.strictEqual(logger.currentLevel, levels.OFF);
+		assert.strictEqual(logger.currentLevel, logger.levels.OFF);
 	});
 
 	it('should log Debug and up when current level is Debug.', function() {
-		logger.setLevel(levels.DEBUG);
-		assert.strictEqual(logger.currentLevel, levels.DEBUG);
+		logger.setLevel(logger.levels.DEBUG);
+		assert.strictEqual(logger.currentLevel, logger.levels.DEBUG);
 
 		logger.error();
 		expect(consoleErrorSpy).to.have.been.called();
@@ -56,9 +55,9 @@ describe('Logger', function() {
 	});
 
 	it.skip('should log Info and up when current level is Info.', function() {
-		logger.setLevel(levels.INFO);
+		logger.setLevel(logger.levels.INFO);
 		console.log('current level =>', logger.currentLevel);
-		assert.strictEqual(logger.currentLevel, levels.INFO);
+		assert.strictEqual(logger.currentLevel, logger.levels.INFO);
 
 		logger.error();
 		expect(consoleErrorSpy).to.have.been.called();
