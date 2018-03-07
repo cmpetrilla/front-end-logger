@@ -3,21 +3,26 @@ const Logger = require('./Logger');
 module.exports = class Context extends Logger {
 	constructor(contextMsg) {
 		super();
-		this.contextMsg = contextMsg;
+
+		let _contextMsg = contextMsg;
+
+		this.getContextMsg = function() {
+			return _contextMsg;
+		}
 	}
 
 	error() {
-		super.error(this.contextMsg, ...arguments);
+		super.error(this.getContextMsg(), ...arguments);
 	}
 	warn() {
-		super.warn(this.contextMsg, ...arguments);
+		super.warn(this.getContextMsg(), ...arguments);
 	}
 
 	info() {
-		super.info(this.contextMsg, ...arguments);
+		super.info(this.getContextMsg(), ...arguments);
 	}
 
 	debug() {
-		super.debug(this.contextMsg, ...arguments);
+		super.debug(this.getContextMsg(), ...arguments);
 	}
 };
