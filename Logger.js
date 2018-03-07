@@ -9,7 +9,7 @@ module.exports = class Logger {
 		});
 
 		// Wacky syntax for this, but it ensures that the current level is private
-		var _currentLevel = this.levels.OFF;
+		let _currentLevel = this.levels.OFF;
 
 		this.getLevel = function() {
 			return _currentLevel;
