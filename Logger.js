@@ -11,11 +11,9 @@ module.exports = class Logger {
 		// Wacky syntax for this, but it ensures that the current level is private
 		let _currentLevel = this.levels.OFF;
 
-		this.getLevel = function() {
-			return _currentLevel;
-		};
+		this.getLevel = () => _currentLevel;
 
-		this.setLevel = function(newLevel) {
+		this.setLevel = (newLevel) => {
 			let levelIsValid = false;
 
 			for (let level in this.levels) {
