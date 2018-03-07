@@ -33,35 +33,33 @@ module.exports = class Logger {
 	}
 
 	error() {
-		let currentLevel = this.getLevel();
-
-		if (currentLevel !== this.levels.OFF && currentLevel <= this.levels.ERROR) {
+		if (this.checkCallConsoleFn(this.levels.ERROR)) {
 			this.callConsoleError(...arguments);
 		}
 	}
 
 	warn() {
-		let currentLevel = this.getLevel();
-
-		if (currentLevel !== this.levels.OFF && currentLevel <= this.levels.WARN) {
+		if (this.checkCallConsoleFn(this.levels.WARN)) {
 			this.callConsoleWarn(...arguments);
 		}
 	}
 
 	info() {
-		let currentLevel = this.getLevel();
-
-		if (currentLevel !== this.levels.OFF && currentLevel <= this.levels.INFO) {
+		if (this.checkCallConsoleFn(this.levels.INFO)) {
 			this.callConsoleInfo(...arguments);
 		}
 	}
 
 	debug() {
-		let currentLevel = this.getLevel();
-
-		if (currentLevel !== this.levels.OFF && currentLevel <= this.levels.DEBUG) {
+		if (this.checkCallConsoleFn(this.levels.DEBUG)) {
 			this.callConsoleDebug(...arguments);
 		}
+	}
+
+	checkCallConsoleFn(level) {
+		let currentLevel = this.getLevel();
+
+		return currentLevel !== this.levels.OFF && currentLevel <= level;
 	}
 
 	static callConsoleError() {
