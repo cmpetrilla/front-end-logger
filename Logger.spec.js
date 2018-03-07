@@ -101,34 +101,51 @@ describe('Logger', function() {
 		expect(callConsoleFnSpy).to.have.been.called.with(console.debug);
 	});
 
-	it.skip('should pass all arguments to appropriate console method.', function() {
+	it('should pass all arguments to appropriate console method.', function() {
 		let msg1 = 'test';
+		let obj = {'testKey': 'testVal'};
 
-		logger.setLevel(logger.levels.ERROR);
+		logger.setLevel(logger.levels.DEBUG);
 
-		logger.error(msg1, msg2);
-		expect(consoleErrorSpy).to.have.been.called.with(msg1, msg2);
+		// error
+		logger.error(msg1);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.error, msg1);
 
-		logger.error(msg1, msg2, msg3);
-		expect(consoleErrorSpy).to.have.been.called.with(msg1, msg2, msg3);
+		logger.error(obj);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.error, obj);
 
-		logger.warn(msg1, msg2);
-		expect(consoleWarnSpy).to.have.been.called.with(msg1, msg2);
+		logger.error(msg1, obj);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.error, msg1, obj);
 
-		logger.warn(msg1, msg2, msg3);
-		expect(consoleWarnSpy).to.have.been.called.with(msg1, msg2, msg3);
+		// warn
+		logger.warn(msg1);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.warn, msg1);
 
-		logger.info(msg1, msg2);
-		expect(consoleInfoSpy).to.have.been.called.with(msg1, msg2);
+		logger.warn(obj);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.warn, obj);
 
-		logger.info(msg1, msg2, msg3);
-		expect(consoleInfoSpy).to.have.been.called.with(msg1, msg2, msg3);
+		logger.warn(msg1, obj);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.warn, msg1, obj);
 
-		logger.debug(msg1, msg2);
-		expect(consoleDebugSpy).to.have.been.called.with(msg1, msg2);
+		// info
+		logger.info(msg1);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.info, msg1);
 
-		logger.debug(msg1, msg2, msg3);
-		expect(consoleDebugSpy).to.have.been.called.with(msg1, msg2, msg3);
+		logger.info(obj);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.info, obj);
+
+		logger.info(msg1, obj);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.info, msg1, obj);
+
+		//debug
+		logger.debug(msg1);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, msg1);
+
+		logger.debug(obj);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, obj);
+
+		logger.debug(msg1, obj);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, msg1, obj);
 	});
 
 	it.skip('should pass context if specified.', function() {

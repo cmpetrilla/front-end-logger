@@ -34,25 +34,25 @@ module.exports = class Logger {
 
 	error() {
 		if (this.checkCallConsoleFn(this.levels.ERROR)) {
-			this.callConsoleFn(console.error, arguments);
+			this.callConsoleFn(console.error, ...arguments);
 		}
 	}
 
 	warn() {
 		if (this.checkCallConsoleFn(this.levels.WARN)) {
-			this.callConsoleFn(console.warn, arguments);
+			this.callConsoleFn(console.warn, ...arguments);
 		}
 	}
 
 	info() {
 		if (this.checkCallConsoleFn(this.levels.INFO)) {
-			this.callConsoleFn(console.info, arguments);
+			this.callConsoleFn(console.info, ...arguments);
 		}
 	}
 
 	debug() {
 		if (this.checkCallConsoleFn(this.levels.DEBUG)) {
-			this.callConsoleFn(console.debug, arguments);
+			this.callConsoleFn(console.debug, ...arguments);
 		}
 	}
 
