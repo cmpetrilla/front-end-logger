@@ -14,11 +14,7 @@ global.console.debug = () => {};
 
 describe('Logger', function() {
 	let logger;
-
-	let consoleErrorSpy;
-	let consoleWarnSpy;
-	let consoleInfoSpy;
-	let consoleDebugSpy;
+	let callConsoleFnSpy;
 
 	beforeEach(function() {
 		logger = new Logger();
@@ -147,17 +143,30 @@ describe('Logger', function() {
 		logger.debug(msg1, obj);
 		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, msg1, obj);
 	});
+});
+
+describe('Context', function() {
+	let logger;
+	let callConsoleFnSpy;
+
+	beforeEach(function() {
+		logger = new Logger();
+		logger.context = function(contextMsg) {
+			return new Context(contextMsg);
+		};
+
+		callConsoleFnSpy = chai.spy.on(logger, 'callConsoleFn');
+	});
 
 	it.skip('should pass context if specified.', function() {
-		let msg1 = 'hello';
-		let msg2 = 'world';
-		let contextMsg = 'new context';
+		let msg1 = 'test';
+		let contextMsg = 'context';
 
 		let loggerWithContext = logger.context(contextMsg);
 
-		logger.setLevel(logger.level.ERROR);
-		loggerWithContext.error(msg1, msg2);
-		expect(consoleErrorSpy).toHaveBeenCalledWith(contextMsg, msg1, msg2);
+		logger.setLevel(logger.levels.ERROR);
+		loggerWithContext.error(msg1);
+		expect(callConsoleFnSpy).to.have.been.called.with(contextMsg, msg1);
 	});
 
 	it.skip('should separate context from other calls.', function() {
@@ -173,5 +182,5 @@ describe('Logger', function() {
 
 		logger.error(msg1, msg2);
 		expect(consoleErrorSpy).toHaveBeenCalledWith(msg1, msg2);
-	})
+	});
 });
