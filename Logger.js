@@ -34,25 +34,25 @@ module.exports = class Logger {
 
 	error() {
 		if (this.checkCallConsoleFn(this.levels.ERROR)) {
-			this.callConsoleError(...arguments);
+			this.callConsoleFn(console.error, arguments);
 		}
 	}
 
 	warn() {
 		if (this.checkCallConsoleFn(this.levels.WARN)) {
-			this.callConsoleWarn(...arguments);
+			this.callConsoleFn(console.warn, arguments);
 		}
 	}
 
 	info() {
 		if (this.checkCallConsoleFn(this.levels.INFO)) {
-			this.callConsoleInfo(...arguments);
+			this.callConsoleFn(console.info, arguments);
 		}
 	}
 
 	debug() {
 		if (this.checkCallConsoleFn(this.levels.DEBUG)) {
-			this.callConsoleDebug(...arguments);
+			this.callConsoleFn(console.debug, arguments);
 		}
 	}
 
@@ -62,19 +62,7 @@ module.exports = class Logger {
 		return currentLevel !== this.levels.OFF && currentLevel <= level;
 	}
 
-	static callConsoleError() {
-		console.error(arguments);
-	}
-
-	static callConsoleWarn() {
-		console.warn(arguments);
-	}
-
-	static callConsoleInfo() {
-		console.info(arguments);
-	}
-
-	static callConsoleDebug() {
-		console.debug(arguments);
+	callConsoleFn(fn) {
+		fn(arguments[1]);
 	}
 };
