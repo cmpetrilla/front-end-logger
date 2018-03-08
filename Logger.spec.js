@@ -265,6 +265,45 @@ describe('Context', function() {
 		expect(callConsoleFnSpy).to.have.been.called.with(console.error, contextMsg, msg1);
 	});
 
+	it('should pass context to warn function if specified.', function() {
+		let contextMsg = 'context';
+		let msg1 = 'msg1';
+		let loggerWithContext = logger.context(contextMsg);
+
+		logger.setLevel(logger.level.WARN);
+		loggerWithContext.warn();
+		expect(callConsoleFnSpy).to.have.been.called.with(console.warn, contextMsg);
+
+		loggerWithContext.warn(msg1);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.warn, contextMsg, msg1);
+	});
+
+	it('should pass context to info function if specified.', function() {
+		let contextMsg = 'context';
+		let msg1 = 'msg1';
+		let loggerWithContext = logger.context(contextMsg);
+
+		logger.setLevel(logger.level.INFO);
+		loggerWithContext.info();
+		expect(callConsoleFnSpy).to.have.been.called.with(console.info, contextMsg);
+
+		loggerWithContext.info(msg1);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.info, contextMsg, msg1);
+	});
+
+	it('should pass context to debug function if specified.', function() {
+		let contextMsg = 'context';
+		let msg1 = 'msg1';
+		let loggerWithContext = logger.context(contextMsg);
+
+		logger.setLevel(logger.level.DEBUG);
+		loggerWithContext.debug();
+		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, contextMsg);
+
+		loggerWithContext.debug(msg1);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, contextMsg, msg1);
+	});
+
 	it.skip('should separate context from other calls.', function() {
 		let msg1 = 'hello';
 		let msg2 = 'world';
