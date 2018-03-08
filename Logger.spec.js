@@ -21,7 +21,7 @@ describe('Logger', function() {
 		callConsoleFnSpy = chai.spy.on(logger, 'callConsoleFn');
 	});
 
-	it('should be defined.', function() {
+	it('should be defined when initialized.', function() {
 		assert.isDefined(logger, 'Logger has been defined');
 	});
 
@@ -29,7 +29,7 @@ describe('Logger', function() {
 		assert.strictEqual(logger.getLevel(), logger.level.OFF);
 	});
 
-	it('should not log anything log when turned off.', function() {
+	it('should not log anything when turned off.', function() {
 		logger.error();
 		logger.warn();
 		logger.info();
@@ -38,7 +38,7 @@ describe('Logger', function() {
 		expect(callConsoleFnSpy).to.not.have.been.called();
 	});
 
-	it('should log Error when current level is Error.', function() {
+	it('when current level is ERROR, should log error.', function() {
 		logger.setLevel(logger.level.ERROR);
 		assert.strictEqual(logger.getLevel(), logger.level.ERROR);
 
@@ -51,7 +51,7 @@ describe('Logger', function() {
 		expect(callConsoleFnSpy).to.have.been.called.with(console.error);
 	});
 
-	it('should log Warn and up when current level is Warn.', function() {
+	it('when current level is WARN, should log warn, error.', function() {
 		logger.setLevel(logger.level.WARN);
 		assert.strictEqual(logger.getLevel(), logger.level.WARN);
 
@@ -65,7 +65,7 @@ describe('Logger', function() {
 		expect(callConsoleFnSpy).to.have.been.called.with(console.warn);
 	});
 
-	it('should log Info and up when current level is Info.', function() {
+	it('when current level is INFO, should log info, warn, error.', function() {
 		logger.setLevel(logger.level.INFO);
 		assert.strictEqual(logger.getLevel(), logger.level.INFO);
 
@@ -80,7 +80,7 @@ describe('Logger', function() {
 		expect(callConsoleFnSpy).to.have.been.called.with(console.info);
 	});
 
-	it('should log Debug and up when current level is Debug.', function() {
+	it('when current level is DEBUG, should log debug, info, warn, error.', function() {
 		logger.setLevel(logger.level.DEBUG);
 		assert.strictEqual(logger.getLevel(), logger.level.DEBUG);
 
