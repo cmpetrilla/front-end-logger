@@ -304,18 +304,16 @@ describe('Context', function() {
 		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, contextMsg, msg1);
 	});
 
-	it.skip('should separate context from other calls.', function() {
-		let msg1 = 'hello';
-		let msg2 = 'world';
-		let contextMsg = 'new context';
+	it('should separate context from other calls.', function() {
+		let contextMsg = 'context';
 		let loggerWithContext = logger.context(contextMsg);
 
 		logger.setLevel(logger.level.ERROR);
 
-		loggerWithContext.error(msg1, msg2);
-		expect(consoleErrorSpy).toHaveBeenCalledWith(contextMsg, msg1, msg2);
+		logger.error();
+		expect(callConsoleFnSpy).to.have.been.called();
 
-		logger.error(msg1, msg2);
-		expect(consoleErrorSpy).toHaveBeenCalledWith(msg1, msg2);
+		loggerWithContext.error();
+		expect(callConsoleFnSpy).to.have.been.called.with(contextMsg);
 	});
 });
