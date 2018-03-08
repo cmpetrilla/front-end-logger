@@ -1,4 +1,4 @@
-module.exports = class Logger {
+class Logger {
 	constructor() {
 		this.level = Object.freeze({
 			ERROR: 4,
@@ -80,4 +80,8 @@ module.exports = class Logger {
 			}.bind(this)
 		}
 	}
-};
+}
+
+if (typeof module !== 'undefined') {
+	module.exports = Logger;
+}
