@@ -102,10 +102,10 @@ describe('Logger', function() {
 	});
 
 	it('should pass all arguments to console.error method.', function() {
-		let msg1 = 'test';
-		let msg2 = 'test2';
-		let obj = {'testKey': 'testVal'};
-		let arr = [1];
+		let msg1 = 'msg1';
+		let msg2 = 'msg2';
+		let obj = {};
+		let arr = [];
 
 		logger.setLevel(logger.level.ERROR);
 
@@ -137,10 +137,10 @@ describe('Logger', function() {
 	});
 
 	it('should pass all arguments to console.warn method.', function() {
-		let msg1 = 'test';
-		let msg2 = 'test2';
-		let obj = {'testKey': 'testVal'};
-		let arr = [1];
+		let msg1 = 'msg1';
+		let msg2 = 'msg2';
+		let obj = {};
+		let arr = [];
 
 		logger.setLevel(logger.level.WARN);
 
@@ -172,10 +172,10 @@ describe('Logger', function() {
 	});
 
 	it('should pass all arguments to console.info method.', function() {
-		let msg1 = 'test';
-		let msg2 = 'test2';
-		let obj = {'testKey': 'testVal'};
-		let arr = [1];
+		let msg1 = 'msg1';
+		let msg2 = 'msg2';
+		let obj = {};
+		let arr = [];
 
 		logger.setLevel(logger.level.INFO);
 
@@ -207,10 +207,10 @@ describe('Logger', function() {
 	});
 
 	it('should pass all arguments to console.debug method.', function() {
-		let msg1 = 'test';
-		let msg2 = 'test2';
-		let obj = {'testKey': 'testVal'};
-		let arr = [1];
+		let msg1 = 'msg1';
+		let msg2 = 'msg2';
+		let obj = {};
+		let arr = [];
 
 		logger.setLevel(logger.level.DEBUG);
 
@@ -254,7 +254,7 @@ describe('Context', function() {
 
 	it('should pass context to error function if specified.', function() {
 		let contextMsg = 'context';
-		let msg1 = 'test';
+		let msg1 = 'msg1';
 		let loggerWithContext = logger.context(contextMsg);
 
 		logger.setLevel(logger.level.ERROR);
