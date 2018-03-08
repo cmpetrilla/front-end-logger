@@ -43,12 +43,12 @@ describe('Logger', function() {
 		assert.strictEqual(logger.getLevel(), logger.level.ERROR);
 
 		logger.error();
+		expect(callConsoleFnSpy).to.have.been.called.with(console.error);
+
 		logger.warn();
 		logger.info();
 		logger.debug();
-
 		expect(callConsoleFnSpy).to.have.been.called.exactly(1);
-		expect(callConsoleFnSpy).to.have.been.called.with(console.error);
 	});
 
 	it('when current level is WARN, should log warn, error.', function() {
@@ -56,13 +56,14 @@ describe('Logger', function() {
 		assert.strictEqual(logger.getLevel(), logger.level.WARN);
 
 		logger.error();
+		expect(callConsoleFnSpy).to.have.been.called.with(console.error);
+
 		logger.warn();
+		expect(callConsoleFnSpy).to.have.been.called.with(console.warn);
+
 		logger.info();
 		logger.debug();
-
 		expect(callConsoleFnSpy).to.have.been.called.exactly(2);
-		expect(callConsoleFnSpy).to.have.been.called.with(console.error);
-		expect(callConsoleFnSpy).to.have.been.called.with(console.warn);
 	});
 
 	it('when current level is INFO, should log info, warn, error.', function() {
@@ -70,14 +71,16 @@ describe('Logger', function() {
 		assert.strictEqual(logger.getLevel(), logger.level.INFO);
 
 		logger.error();
-		logger.warn();
-		logger.info();
-		logger.debug();
-
-		expect(callConsoleFnSpy).to.have.been.called.exactly(3);
 		expect(callConsoleFnSpy).to.have.been.called.with(console.error);
+
+		logger.warn();
 		expect(callConsoleFnSpy).to.have.been.called.with(console.warn);
+
+		logger.info();
 		expect(callConsoleFnSpy).to.have.been.called.with(console.info);
+
+		logger.debug();
+		expect(callConsoleFnSpy).to.have.been.called.exactly(3);
 	});
 
 	it('when current level is DEBUG, should log debug, info, warn, error.', function() {
@@ -85,15 +88,17 @@ describe('Logger', function() {
 		assert.strictEqual(logger.getLevel(), logger.level.DEBUG);
 
 		logger.error();
-		logger.warn();
-		logger.info();
-		logger.debug();
-
-		expect(callConsoleFnSpy).to.have.been.called.exactly(4);
 		expect(callConsoleFnSpy).to.have.been.called.with(console.error);
+
+		logger.warn();
 		expect(callConsoleFnSpy).to.have.been.called.with(console.warn);
+
+		logger.info();
 		expect(callConsoleFnSpy).to.have.been.called.with(console.info);
+
+		logger.debug();
 		expect(callConsoleFnSpy).to.have.been.called.with(console.debug);
+		expect(callConsoleFnSpy).to.have.been.called.exactly(4);
 	});
 
 	it('should pass all arguments to console.error method.', function() {
