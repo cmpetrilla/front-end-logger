@@ -15,6 +15,12 @@ describe('Logger', function() {
 	let logger;
 	let callConsoleFnSpy;
 
+	// Shared across suite
+	let msg1 = 'msg1';
+	let msg2 = 'msg2';
+	let obj = {};
+	let arr = [];
+
 	beforeEach(function() {
 		logger = new Logger();
 
@@ -102,11 +108,6 @@ describe('Logger', function() {
 	});
 
 	it('should pass all arguments to console.error method.', function() {
-		let msg1 = 'msg1';
-		let msg2 = 'msg2';
-		let obj = {};
-		let arr = [];
-
 		logger.setLevel(logger.level.ERROR);
 
 		// No params
@@ -137,11 +138,6 @@ describe('Logger', function() {
 	});
 
 	it('should pass all arguments to console.warn method.', function() {
-		let msg1 = 'msg1';
-		let msg2 = 'msg2';
-		let obj = {};
-		let arr = [];
-
 		logger.setLevel(logger.level.WARN);
 
 		// No params
@@ -172,11 +168,6 @@ describe('Logger', function() {
 	});
 
 	it('should pass all arguments to console.info method.', function() {
-		let msg1 = 'msg1';
-		let msg2 = 'msg2';
-		let obj = {};
-		let arr = [];
-
 		logger.setLevel(logger.level.INFO);
 
 		// No params
@@ -207,11 +198,6 @@ describe('Logger', function() {
 	});
 
 	it('should pass all arguments to console.debug method.', function() {
-		let msg1 = 'msg1';
-		let msg2 = 'msg2';
-		let obj = {};
-		let arr = [];
-
 		logger.setLevel(logger.level.DEBUG);
 
 		// No params
@@ -244,19 +230,22 @@ describe('Logger', function() {
 
 describe('Context', function() {
 	let logger;
+	let loggerWithContext;
 	let callConsoleFnSpy;
+
+	// Shared across suite
+	let contextMsg = 'context';
+	let msg1 = 'msg1';
 
 	beforeEach(function() {
 		logger = new Logger();
+
+		loggerWithContext = logger.context(contextMsg);
 
 		callConsoleFnSpy = chai.spy.on(logger, 'callConsoleFn');
 	});
 
 	it('should pass context to error function if specified.', function() {
-		let contextMsg = 'context';
-		let msg1 = 'msg1';
-		let loggerWithContext = logger.context(contextMsg);
-
 		logger.setLevel(logger.level.ERROR);
 		loggerWithContext.error();
 		expect(callConsoleFnSpy).to.have.been.called.with(console.error, contextMsg);
@@ -266,10 +255,6 @@ describe('Context', function() {
 	});
 
 	it('should pass context to warn function if specified.', function() {
-		let contextMsg = 'context';
-		let msg1 = 'msg1';
-		let loggerWithContext = logger.context(contextMsg);
-
 		logger.setLevel(logger.level.WARN);
 		loggerWithContext.warn();
 		expect(callConsoleFnSpy).to.have.been.called.with(console.warn, contextMsg);
@@ -279,10 +264,6 @@ describe('Context', function() {
 	});
 
 	it('should pass context to info function if specified.', function() {
-		let contextMsg = 'context';
-		let msg1 = 'msg1';
-		let loggerWithContext = logger.context(contextMsg);
-
 		logger.setLevel(logger.level.INFO);
 		loggerWithContext.info();
 		expect(callConsoleFnSpy).to.have.been.called.with(console.info, contextMsg);
@@ -292,10 +273,6 @@ describe('Context', function() {
 	});
 
 	it('should pass context to debug function if specified.', function() {
-		let contextMsg = 'context';
-		let msg1 = 'msg1';
-		let loggerWithContext = logger.context(contextMsg);
-
 		logger.setLevel(logger.level.DEBUG);
 		loggerWithContext.debug();
 		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, contextMsg);
@@ -305,9 +282,6 @@ describe('Context', function() {
 	});
 
 	it('should separate context from other calls.', function() {
-		let contextMsg = 'context';
-		let loggerWithContext = logger.context(contextMsg);
-
 		logger.setLevel(logger.level.ERROR);
 
 		logger.error();
