@@ -26,7 +26,7 @@ describe('Logger', function() {
 	});
 
 	it('should be turned off by default.', function() {
-		assert.strictEqual(logger.getLevel(), logger.levels.OFF);
+		assert.strictEqual(logger.getLevel(), logger.level.OFF);
 	});
 
 	it('should not anything log when turned off.', function() {
@@ -39,8 +39,8 @@ describe('Logger', function() {
 	});
 
 	it('should log Error current level is Error.', function() {
-		logger.setLevel(logger.levels.ERROR);
-		assert.strictEqual(logger.getLevel(), logger.levels.ERROR);
+		logger.setLevel(logger.level.ERROR);
+		assert.strictEqual(logger.getLevel(), logger.level.ERROR);
 
 		logger.error();
 		logger.warn();
@@ -52,8 +52,8 @@ describe('Logger', function() {
 	});
 
 	it('should log Warn and up when current level is Warn.', function() {
-		logger.setLevel(logger.levels.WARN);
-		assert.strictEqual(logger.getLevel(), logger.levels.WARN);
+		logger.setLevel(logger.level.WARN);
+		assert.strictEqual(logger.getLevel(), logger.level.WARN);
 
 		logger.error();
 		logger.warn();
@@ -66,8 +66,8 @@ describe('Logger', function() {
 	});
 
 	it('should log Info and up when current level is Info.', function() {
-		logger.setLevel(logger.levels.INFO);
-		assert.strictEqual(logger.getLevel(), logger.levels.INFO);
+		logger.setLevel(logger.level.INFO);
+		assert.strictEqual(logger.getLevel(), logger.level.INFO);
 
 		logger.error();
 		logger.warn();
@@ -81,8 +81,8 @@ describe('Logger', function() {
 	});
 
 	it('should log Debug and up when current level is Debug.', function() {
-		logger.setLevel(logger.levels.DEBUG);
-		assert.strictEqual(logger.getLevel(), logger.levels.DEBUG);
+		logger.setLevel(logger.level.DEBUG);
+		assert.strictEqual(logger.getLevel(), logger.level.DEBUG);
 
 		logger.error();
 		logger.warn();
@@ -100,7 +100,7 @@ describe('Logger', function() {
 		let msg1 = 'test';
 		let obj = {'testKey': 'testVal'};
 
-		logger.setLevel(logger.levels.DEBUG);
+		logger.setLevel(logger.level.DEBUG);
 
 		// error
 		logger.error(msg1);
@@ -159,7 +159,7 @@ describe('Context', function() {
 		let contextMsg = 'context';
 		let loggerWithContext = logger.context(contextMsg);
 
-		logger.setLevel(logger.levels.DEBUG);
+		logger.setLevel(logger.level.DEBUG);
 
 		loggerWithContext.error(msg1);
 

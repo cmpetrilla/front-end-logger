@@ -1,6 +1,6 @@
 module.exports = class Logger {
 	constructor() {
-		this.levels = Object.freeze({
+		this.level = Object.freeze({
 			ERROR: 4,
 			WARN: 3,
 			INFO: 2,
@@ -9,15 +9,15 @@ module.exports = class Logger {
 		});
 
 		// Wacky syntax for this, but it ensures that the current level is private
-		let _currentLevel = this.levels.OFF;
+		let _currentLevel = this.level.OFF;
 
 		this.getLevel = () => _currentLevel;
 
 		this.setLevel = (newLevel) => {
 			let levelIsValid = false;
 
-			for (let level in this.levels) {
-				if (this.levels[level] === newLevel) {
+			for (let level in this.level) {
+				if (this.level[level] === newLevel) {
 					levelIsValid = true;
 				}
 			}
@@ -25,31 +25,31 @@ module.exports = class Logger {
 				_currentLevel = newLevel;
 			} else {
 				console.warn('Current level is not valid. Turning debugging off.');
-				_currentLevel = this.levels.OFF;
+				_currentLevel = this.level.OFF;
 			}
 		}
 	}
 
 	error() {
-		if (this.checkCallConsoleFn(this.levels.ERROR)) {
+		if (this.checkCallConsoleFn(this.level.ERROR)) {
 			this.callConsoleFn(console.error, ...arguments);
 		}
 	}
 
 	warn() {
-		if (this.checkCallConsoleFn(this.levels.WARN)) {
+		if (this.checkCallConsoleFn(this.level.WARN)) {
 			this.callConsoleFn(console.warn, ...arguments);
 		}
 	}
 
 	info() {
-		if (this.checkCallConsoleFn(this.levels.INFO)) {
+		if (this.checkCallConsoleFn(this.level.INFO)) {
 			this.callConsoleFn(console.info, ...arguments);
 		}
 	}
 
 	debug() {
-		if (this.checkCallConsoleFn(this.levels.DEBUG)) {
+		if (this.checkCallConsoleFn(this.level.DEBUG)) {
 			this.callConsoleFn(console.debug, ...arguments);
 		}
 	}
@@ -57,7 +57,7 @@ module.exports = class Logger {
 	checkCallConsoleFn(level) {
 		let currentLevel = this.getLevel();
 
-		return currentLevel !== this.levels.OFF && currentLevel <= level;
+		return currentLevel !== this.level.OFF && currentLevel <= level;
 	}
 
 	callConsoleFn(fn) {
