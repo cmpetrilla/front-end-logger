@@ -135,6 +135,111 @@ describe('Logger', function() {
 		logger.error(msg1, msg2, obj, arr);
 		expect(callConsoleFnSpy).to.have.been.called.with(console.error, msg1, msg2, obj, arr);
 	});
+
+	it('should pass all arguments to console.warn method.', function() {
+		let msg1 = 'test';
+		let msg2 = 'test2';
+		let obj = {'testKey': 'testVal'};
+		let arr = [1];
+
+		logger.setLevel(logger.level.WARN);
+
+		// No params
+		logger.warn();
+		expect(callConsoleFnSpy).to.have.been.called.with(console.warn);
+
+		// Single string
+		logger.warn(msg1);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.warn, msg1);
+
+		// Single object
+		logger.warn(obj);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.warn, obj);
+
+		// Single array
+		logger.warn(arr);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.warn, arr);
+
+		// Combination of params
+		logger.warn(msg1, msg2);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.warn, msg1, msg2);
+
+		logger.warn(msg1, msg2, obj);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.warn, msg1, msg2, obj);
+
+		logger.warn(msg1, msg2, obj, arr);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.warn, msg1, msg2, obj, arr);
+	});
+
+	it('should pass all arguments to console.info method.', function() {
+		let msg1 = 'test';
+		let msg2 = 'test2';
+		let obj = {'testKey': 'testVal'};
+		let arr = [1];
+
+		logger.setLevel(logger.level.INFO);
+
+		// No params
+		logger.info();
+		expect(callConsoleFnSpy).to.have.been.called.with(console.info);
+
+		// Single string
+		logger.info(msg1);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.info, msg1);
+
+		// Single object
+		logger.info(obj);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.info, obj);
+
+		// Single array
+		logger.info(arr);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.info, arr);
+
+		// Combination of params
+		logger.info(msg1, msg2);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.info, msg1, msg2);
+
+		logger.info(msg1, msg2, obj);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.info, msg1, msg2, obj);
+
+		logger.info(msg1, msg2, obj, arr);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.info, msg1, msg2, obj, arr);
+	});
+
+	it('should pass all arguments to console.debug method.', function() {
+		let msg1 = 'test';
+		let msg2 = 'test2';
+		let obj = {'testKey': 'testVal'};
+		let arr = [1];
+
+		logger.setLevel(logger.level.DEBUG);
+
+		// No params
+		logger.debug();
+		expect(callConsoleFnSpy).to.have.been.called.with(console.debug);
+
+		// Single string
+		logger.debug(msg1);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, msg1);
+
+		// Single object
+		logger.debug(obj);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, obj);
+
+		// Single array
+		logger.debug(arr);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, arr);
+
+		// Combination of params
+		logger.debug(msg1, msg2);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, msg1, msg2);
+
+		logger.debug(msg1, msg2, obj);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, msg1, msg2, obj);
+
+		logger.debug(msg1, msg2, obj, arr);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, msg1, msg2, obj, arr);
+	});
 });
 
 describe('Context', function() {
