@@ -38,7 +38,7 @@ describe('Logger', function() {
 		expect(callConsoleFnSpy).to.not.have.been.called();
 	});
 
-	it('should log Error current level is Error.', function() {
+	it('should log Error when current level is Error.', function() {
 		logger.setLevel(logger.level.ERROR);
 		assert.strictEqual(logger.getLevel(), logger.level.ERROR);
 
