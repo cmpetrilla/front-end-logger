@@ -63,4 +63,21 @@ module.exports = class Logger {
 	callConsoleFn(fn) {
 		fn(arguments[1]);
 	}
+
+	context(contextMsg) {
+		return {
+			error: function() {
+				this.error(contextMsg, ...arguments);
+			}.bind(this),
+			warn: function() {
+				this.warn(contextMsg, ...arguments);
+			}.bind(this),
+			info: function() {
+				this.info(contextMsg, ...arguments);
+			}.bind(this),
+			debug: function() {
+				this.debug(contextMsg, ...arguments);
+			}.bind(this)
+		}
+	}
 };

@@ -1,5 +1,4 @@
 const Logger = require('./Logger');
-const Context = require('./Context');
 const chai = require('chai');
 const spies = require('chai-spies');
 const assert = chai.assert;
@@ -151,22 +150,21 @@ describe('Context', function() {
 
 	beforeEach(function() {
 		logger = new Logger();
-		logger.context = function(contextMsg) {
-			return new Context(contextMsg);
-		};
 
 		callConsoleFnSpy = chai.spy.on(logger, 'callConsoleFn');
 	});
 
-	it.skip('should pass context if specified.', function() {
+	it('should pass context to error function if specified.', function() {
 		let msg1 = 'test';
 		let contextMsg = 'context';
-
 		let loggerWithContext = logger.context(contextMsg);
 
-		logger.setLevel(logger.levels.ERROR);
+		logger.setLevel(logger.levels.DEBUG);
+
 		loggerWithContext.error(msg1);
-		expect(callConsoleFnSpy).to.have.been.called.with(contextMsg, msg1);
+
+		expect(callConsoleFnSpy).to.have.been.called.with(console.error, contextMsg, msg1);
+		expect(callConsoleFnSpy).to.have.been.called.exactly(1);
 	});
 
 	it.skip('should separate context from other calls.', function() {
