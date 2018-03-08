@@ -96,51 +96,39 @@ describe('Logger', function() {
 		expect(callConsoleFnSpy).to.have.been.called.with(console.debug);
 	});
 
-	it('should pass all arguments to appropriate console method.', function() {
+	it('should pass all arguments to console.error method.', function() {
 		let msg1 = 'test';
+		let msg2 = 'test2';
 		let obj = {'testKey': 'testVal'};
+		let arr = [1];
 
-		logger.setLevel(logger.level.DEBUG);
+		logger.setLevel(logger.level.ERROR);
 
-		// error
+		// No params
+		logger.error();
+		expect(callConsoleFnSpy).to.have.been.called.with(console.error);
+
+		// Single string
 		logger.error(msg1);
 		expect(callConsoleFnSpy).to.have.been.called.with(console.error, msg1);
 
+		// Single object
 		logger.error(obj);
 		expect(callConsoleFnSpy).to.have.been.called.with(console.error, obj);
 
-		logger.error(msg1, obj);
-		expect(callConsoleFnSpy).to.have.been.called.with(console.error, msg1, obj);
+		// Single array
+		logger.error(arr);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.error, arr);
 
-		// warn
-		logger.warn(msg1);
-		expect(callConsoleFnSpy).to.have.been.called.with(console.warn, msg1);
+		// Combination of params
+		logger.error(msg1, msg2);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.error, msg1, msg2);
 
-		logger.warn(obj);
-		expect(callConsoleFnSpy).to.have.been.called.with(console.warn, obj);
+		logger.error(msg1, msg2, obj);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.error, msg1, msg2, obj);
 
-		logger.warn(msg1, obj);
-		expect(callConsoleFnSpy).to.have.been.called.with(console.warn, msg1, obj);
-
-		// info
-		logger.info(msg1);
-		expect(callConsoleFnSpy).to.have.been.called.with(console.info, msg1);
-
-		logger.info(obj);
-		expect(callConsoleFnSpy).to.have.been.called.with(console.info, obj);
-
-		logger.info(msg1, obj);
-		expect(callConsoleFnSpy).to.have.been.called.with(console.info, msg1, obj);
-
-		//debug
-		logger.debug(msg1);
-		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, msg1);
-
-		logger.debug(obj);
-		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, obj);
-
-		logger.debug(msg1, obj);
-		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, msg1, obj);
+		logger.error(msg1, msg2, obj, arr);
+		expect(callConsoleFnSpy).to.have.been.called.with(console.error, msg1, msg2, obj, arr);
 	});
 });
 
