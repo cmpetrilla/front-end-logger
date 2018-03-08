@@ -29,7 +29,7 @@ describe('Logger', function() {
 		assert.strictEqual(logger.getLevel(), logger.level.OFF);
 	});
 
-	it('should not anything log when turned off.', function() {
+	it('should not log anything log when turned off.', function() {
 		logger.error();
 		logger.warn();
 		logger.info();
