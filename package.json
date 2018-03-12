@@ -1,14 +1,13 @@
 {
-  "name": "sourcepoint-logger",
+  "name": "custom-logger",
   "version": "0.0.0",
   "dependencies": {},
   "devDependencies": {
-    "jasmine-core": "^2.6.4",
-    "karma": "^1.7.0",
-    "karma-chrome-launcher": "^2.2.0",
-    "karma-jasmine": "^1.1.0"
+    "chai": "*",
+    "chai-spies": "^1.0.0",
+    "mocha": "*"
   },
   "scripts": {
-    "test": "cd ./node_modules/karma/bin/ && karma start ../../../karma.conf.js"
+    "test": "cd ./node_modules/mocha/bin/ && mocha ../../../Logger.spec.js"
   }
 }
