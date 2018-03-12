@@ -61,7 +61,9 @@ class Logger {
 	}
 
 	callConsoleFn(fn) {
-		fn(arguments[1]);
+		[].shift.apply(arguments);
+
+		fn(...arguments);
 	}
 
 	context(contextMsg) {

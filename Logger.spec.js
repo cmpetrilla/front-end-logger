@@ -14,6 +14,7 @@ global.console.debug = () => {};
 describe('Logger', function() {
 	let logger;
 	let callConsoleFnSpy;
+	let consoleSpy = chai.spy.on(global.console, 'error');
 
 	// Shared across suite
 	let msg1 = 'msg1';
@@ -225,6 +226,25 @@ describe('Logger', function() {
 
 		logger.debug(msg1, msg2, obj, arr);
 		expect(callConsoleFnSpy).to.have.been.called.with(console.debug, msg1, msg2, obj, arr);
+	});
+
+	it('should pass all values to console function', function() {
+		logger.setLevel(logger.level.ERROR);
+
+		logger.error(msg1);
+		expect(consoleSpy).to.have.been.called.with(msg1);
+
+		logger.error(msg1, msg2);
+		expect(consoleSpy).to.have.been.called.with(msg1, msg2);
+
+		logger.error(obj);
+		expect(consoleSpy).to.have.been.called.with(obj);
+
+		logger.error(arr);
+		expect(consoleSpy).to.have.been.called.with(arr);
+
+		logger.error(msg1, msg2, obj);
+		expect(consoleSpy).to.have.been.called.with(msg1, msg2, obj);
 	});
 });
 
